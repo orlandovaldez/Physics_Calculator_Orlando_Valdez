@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <iomanip>
+#include <cmath>
 #include "Input_Validation_Extended.h"
 using namespace std;
 
@@ -10,8 +11,11 @@ void showMenu();
 void chosenOption(string);
 void calculateVelocity();
 void calculateAcceleration();
+void calculateMotion();
 void calculateForce();
 void calculateWeight();
+void calculateMomentum();
+
 
 
 void showMenu()
@@ -21,12 +25,12 @@ void showMenu()
   cout << "B: Acceleration" << endl;
   cout << "C: Motion" << endl;
   cout << "D: Newton's Second Law" << endl;
-  cout << "E: Weight(Earth)" << endl;
-  cout << "F: Momentum" << endl;
-  cout << "X: Exit " << endl;
-  cout << "Z: To CLear The Scren" << endl;
+  cout << "F: Weight(Earth)" << endl;
+  cout << "G: Momentum" << endl;
+  cout << "E: Exit " << endl;
+  cout << "Z: To Clear The Screen" << endl;
 }
-void chosenOption(string option)
+void chosenOption(string option)//option selection depending on user input validated
 {
   if(option == "A" || option == "a")
   {
@@ -38,25 +42,21 @@ void chosenOption(string option)
   }
   else if(option == "C" || option == "c")
   {
-
-    cout << "\nMotion Calculator" << endl;
-
+    calculateMotion();
   }
   else if(option == "D" || option == "d")
   {
     calculateForce();
   }
-  else if(option == "E" || option == "e")
+  else if(option == "F" || option == "f")
   {
     calculateWeight();
   }
-  else if(option == "F" || option == "f")
+  else if(option == "G" || option == "g")
   {
-
-    cout << "\nMomentum Calculator" << endl;
-
+    calculateMomentum();
   }
-  else if(option == "Z" || option == "z")
+  else if(option == "Z" || option == "z")//clears the whole screen 
   {
     string reset = "\x1b[0m";
     cout << reset;
@@ -64,9 +64,13 @@ void chosenOption(string option)
     system("clear");
 
   }
+  else if(option == "E" || option == "e")// exits the Program
+  {
+    cout << "\nExiting The Program..." << endl;
+  }
   else
   {
-    cout << "\nInvalid Option Try Again." << endl;
+    cout << "\nInvalid Option Try Again." << endl;//if user input is invalid this will be displayed until proper input is entered.
   }
   
 
@@ -91,7 +95,7 @@ void calculateVelocity()
 
     double V = ds / dt;
 
-    cout << ds << " / " << dt << " = " << V << " " << dsUnits << "/" << dtUnits << endl;
+    cout << ds << " / " << dt << " = " << color << V << reset << " " << dsUnits << "/" << dtUnits << endl;
 }
 void calculateAcceleration()
 {
@@ -113,8 +117,77 @@ void calculateAcceleration()
 
   double V = dv / dt;
 
-  cout << dv << " / " << dt << " = " << V << " " << dvUnits << "/" << dtUnits << endl;
+  cout << dv << " / " << dt << " = " << color << V << reset << " " << dvUnits << "/" << dtUnits << endl;
 }
+
+
+void calculateMotion()
+{
+  string color = "\x1b[" + to_string(31) + ";1m";
+  string reset = "\x1b[0m";
+  double motionOption = 0;
+
+  cout << color;
+  cout << "\nEquations of Motion Calculator" << endl;
+  cout << reset;
+  cout << "\nChoose an option(1-4)"  << endl;  
+  cout << "\n(1)Ma = solve for v ";
+  cout << "\n(2)Ms = solve for s ";
+  cout << "\n(3)Mv2 = solve for v^2 ";
+  cout << "\n(4)Mv = solve for v_bar " << endl;
+  cout << color;
+  motionOption = validateDouble(motionOption);
+  cout << reset;
+
+  
+      
+  if(motionOption == 1)
+  {
+    double constantTerm , firstTerm, v= 0.0;
+    cout << "\nSolving For V " << endl;
+    cout << "\nEnter input for Constant Term " << endl;
+    constantTerm = validateDouble(constantTerm);
+    cout << "\nEnter input for First Term "<< endl;
+    firstTerm = validateDouble(firstTerm);
+    v = (constantTerm + firstTerm);
+
+    cout << "\nFinal Velocity is equal to " << endl;
+    cout << constantTerm << " + " << firstTerm << " = " << color << v << reset << " m/s" << endl;
+  }
+  else if(motionOption == 2)
+  {
+    double constantTerm, firstTerm, secondTerm,s = 0.0;
+    cout << "\nSolving For S " << endl;
+    cout << "\nEnter Constant Term " << endl;
+    constantTerm = validateDouble(constantTerm);
+    cout << "\nEnter First Term " << endl;
+    firstTerm = validateDouble(firstTerm);
+    cout << "\nEnter Second Term " << endl;
+    secondTerm =m validateDouble(secondTerm);
+    s = constantTerm + firstTerm + (secondTerm);
+
+    cout << "\nDisplacement is Equal to " << endl;
+    cout << color << s << reset << endl;
+
+  }
+  else if(motionOption == 3)
+  {
+
+  }
+  else if(motionOption == 4)
+  {
+
+  }
+  else
+  {
+    cout << "\nInvalid Input try again" << endl;
+    
+  }
+
+  
+}
+
+
 void calculateForce()
 {
   string color = "\x1b[" + to_string(31) + ";1m";
@@ -158,5 +231,31 @@ void calculateWeight()
   cout << "\nMass * Gravity = Weight " << endl;
   cout << m << " * " << g << " = " << color << w << reset << mUnits << endl;
 
+}
+void calculateMomentum()
+{
+  double m,v, p = 0.0;
+  string mUnits, vUnits;
+  string color = "\x1b[" + to_string(31) + ";1m";
+  string reset = "\x1b[0m";
+  cout << color;
+  cout << "\nMomentum Calculator" << endl;
+  cout << reset;
+  cout << "\nWhat is the initial mass of the object? " << endl;
+  m = validateDouble(m);
+  cout << "\nWhat is the Unit of Measure Output? (ie. kg m/s)" << endl;
+  mUnits = validateString(mUnits);
+  cout << "\nWhat is the initial veleocity of the object? " << endl;
+  v = validateDouble(v);
+  cout << "\nWhat is the Unit of Measure Output for Velocity? " << endl;
+  vUnits = validateString(vUnits);
+  p = (m * v);
+  cout << "\nMass * Velocity = Momentum" << endl;
+  cout << m << " * " << v << " = " << color << p << reset << mUnits << " " << vUnits << "/s" << endl;
+
 
 }
+
+
+//gonna be a menu on menu order
+// for momentum theres gonna be a main item with a submenu about it 
