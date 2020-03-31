@@ -141,7 +141,7 @@ void calculateMotion()
 
   
       
-  if(motionOption == 1)
+  if(motionOption == 1)//v = v0 + at
   {
     double constantTerm , firstTerm, v= 0.0;
     cout << "\nSolving For V " << endl;
@@ -154,7 +154,7 @@ void calculateMotion()
     cout << "\nFinal Velocity is equal to " << endl;
     cout << constantTerm << " + " << firstTerm << " = " << color << v << reset << " m/s" << endl;
   }
-  else if(motionOption == 2)
+  else if(motionOption == 2)//s = s0 + v0t + ½at^2
   {
     double constantTerm, firstTerm, secondTerm,s = 0.0;
     cout << "\nSolving For S " << endl;
@@ -163,20 +163,42 @@ void calculateMotion()
     cout << "\nEnter First Term " << endl;
     firstTerm = validateDouble(firstTerm);
     cout << "\nEnter Second Term " << endl;
-    secondTerm =m validateDouble(secondTerm);
-    s = constantTerm + firstTerm + (secondTerm);
+    secondTerm = validateDouble(secondTerm);
+    s = constantTerm + firstTerm + ((0.5)*(secondTerm * secondTerm));
 
     cout << "\nDisplacement is Equal to " << endl;
-    cout << color << s << reset << endl;
+    cout << constantTerm << " + " << firstTerm << " + " << "(1/2)" << secondTerm << "^2" << " = " << color << s << " "<< reset << endl;
 
   }
-  else if(motionOption == 3)
+  else if(motionOption == 3)//v2 = v0^2 + 2a(s − s0)
   {
+    double v0, a, s, s0, v2 = 0.0;
+    cout << "\nSolving For v^2 " << endl;
+    cout << "\nEnter Value for v0 : " << endl;
+    v0 = validateDouble(v0);
+    cout << "\nEnter Value for a :" << endl;
+    a = validateDouble(a);
+    cout << "\nEnter Value for s :" << endl;
+    s = validateDouble(s);
+    cout << "\nEnter Value for s0 :" << endl;
+    s0 = validateDouble(s0);
+
+    v2 = (v0 * v0) + (a + a) * (s -s0);
+    cout << color << "\nV^2 is Equal to " << endl;
+    cout << "(" << v0 << " * " << v0 << ") + (" << a << "+" << a << ") * (" << s << " - " << s0 << ") = " << color << v2 << reset << endl;
 
   }
-  else if(motionOption == 4)
+  else if(motionOption == 4)//v̅ = ½(v + v0)
   {
-
+    double v̅, v , v0 = 0.0;
+    cout << "\nSolving For v_bar " << endl;
+    cout << "\nEnter value for v : " << endl;
+    v = validateDouble(v);
+    cout << "\nEnter value for v0 : " << endl;
+    v0 = validateDouble(v0);
+    v̅ = (0.5 * (v + v0));
+    cout << "\nv_bar is equal to " << endl;
+    cout << "½(" << v << " + " << v0 << ") = " << color << v̅ << reset << endl;
   }
   else
   {
@@ -184,10 +206,7 @@ void calculateMotion()
     
   }
 
-  
 }
-
-
 void calculateForce()
 {
   string color = "\x1b[" + to_string(31) + ";1m";

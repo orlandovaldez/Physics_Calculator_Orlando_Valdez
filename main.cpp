@@ -1,6 +1,6 @@
 //Student: Orlando Valdez
 //Teacher: Dr_T
-//03-20-20
+//Date: 03-20-20
 
 #include "Functions.h"
 #include <iomanip>
