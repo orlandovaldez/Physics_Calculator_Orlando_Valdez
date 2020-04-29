@@ -1,6 +1,9 @@
 //Student: Orlando Valdez
 //Teacher: Dr_T
+//School: Tarrant County College
 //Date: 03-20-20
+//Purpose: To create a menu driven program that will disply an anwser depending on user data inputted on equation data inputted 
+//Skills: Menu Driven Loops, Header Files, Input Validation
 
 #include "Functions.h"
 #include <iomanip>
